@@ -14,10 +14,10 @@ const name = "MANYUVRAJ SANDHU";
 
 export default function SplashScreen() {
   const [showSplash, setShowSplash] = useState(true);
-  const [nameAnimationDone, setNameAnimationDone] = useState(false);
   const [startSlideUp, setStartSlideUp] = useState(false);
 
   useEffect(() => {
+    // Disable scroll when splash is shown
     if (showSplash) {
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
@@ -31,20 +31,17 @@ export default function SplashScreen() {
     const nameAnimDuration = lettersCount * letterAnimTime * 1000; // ms
     const holdDuration = 2000; // 2 seconds hold
 
-    const nameAnimTimer = setTimeout(() => {
-      setNameAnimationDone(true);
-    }, nameAnimDuration);
-
+    // Start sliding up after name animation + hold time
     const slideTimer = setTimeout(() => {
       setStartSlideUp(true);
     }, nameAnimDuration + holdDuration);
 
+    // End splash 1 second after slide up starts
     const endSplashTimer = setTimeout(() => {
       setShowSplash(false);
     }, nameAnimDuration + holdDuration + 1000);
 
     return () => {
-      clearTimeout(nameAnimTimer);
       clearTimeout(slideTimer);
       clearTimeout(endSplashTimer);
       document.body.style.overflow = "";

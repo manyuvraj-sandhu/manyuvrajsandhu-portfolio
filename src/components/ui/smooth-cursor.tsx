@@ -130,7 +130,8 @@ export function SmoothCursor({
       updateVelocity(currentPos);
 
       const speed = Math.sqrt(
-        Math.pow(velocity.current.x, 2) + Math.pow(velocity.current.y, 2),
+        velocity.current.x * velocity.current.x +
+          velocity.current.y * velocity.current.y,
       );
 
       cursorX.set(currentPos.x);
@@ -138,7 +139,7 @@ export function SmoothCursor({
 
       if (speed > 0.1) {
         const currentAngle =
-          Math.atan2(velocity.current.y, velocity.current.x) * (180 / Math.PI) +
+          (Math.atan2(velocity.current.y, velocity.current.x) * 180) / Math.PI +
           90;
 
         let angleDiff = currentAngle - previousAngle.current;
@@ -180,6 +181,9 @@ export function SmoothCursor({
     };
   }, [cursorX, cursorY, rotation, scale]);
 
+  // Use isMoving state: e.g., adjust opacity for subtle feedback
+  const opacity = isMoving ? 1 : 0.7;
+
   return (
     <motion.div
       style={{
@@ -190,6 +194,7 @@ export function SmoothCursor({
         translateY: "-50%",
         rotate: rotation,
         scale: scale,
+        opacity,
         zIndex: 100,
         pointerEvents: "none",
         willChange: "transform",

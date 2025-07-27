@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import { motion, useInView, easeOut } from "framer-motion";
 import MovingLogoTitle from "./MovingLogoTitle"; // Adjust path if needed
 import { Layers } from "lucide-react";
@@ -92,14 +93,18 @@ function TechItem({ label, iconSrc }: Tech) {
       animate={inView ? "visible" : "hidden"}
       className="flex items-center gap-3 min-w-[120px] sm:min-w-[140px]"
     >
-      <img
+      <Image
         src={iconSrc}
         alt={label}
-        className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
+        width={56}
+        height={56}
+        className="object-contain"
         loading="lazy"
         draggable={false}
       />
-      <span className="text-black font-medium text-base sm:text-lg">{label}</span>
+      <span className="text-black font-medium text-base sm:text-lg whitespace-normal break-words">
+        {label}
+      </span>
     </motion.div>
   );
 }
@@ -127,17 +132,19 @@ function StackSection({ title, techs }: StackCategory) {
       <h2
         className={`${anton.className} font-extrabold tracking-wide mb-6 md:mb-0 md:text-left md:flex-1`}
         style={{
-          fontSize: "3.5rem",
+          fontSize: "clamp(2rem, 5vw, 4.5rem)", // responsive font size
           lineHeight: 1,
           color: "black",
           textTransform: "uppercase",
+          wordBreak: "break-word",  // allow breaking long words if needed
+          overflowWrap: "break-word",
         }}
       >
         {title}
       </h2>
 
       {/* Tech items on right */}
-      <div className="flex flex-wrap gap-10 justify-center md:justify-start md:flex-1">
+      <div className="flex flex-wrap gap-6 justify-center md:justify-start md:flex-1">
         {techs.map((tech) => (
           <TechItem key={tech.label} {...tech} />
         ))}
@@ -148,14 +155,12 @@ function StackSection({ title, techs }: StackCategory) {
 
 export default function Stack() {
   const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section
       ref={ref}
       className="max-w-7xl mx-auto px-6 py-24 text-black relative"
     >
-      {/* Default font (no Anton) for this title with a reasonable size */}
       <MovingLogoTitle
         title="MY STACK"
         logo={<Layers size={24} />}
