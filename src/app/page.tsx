@@ -13,13 +13,13 @@ export default function Home() {
     <>
       <SplashScreen />
       <Particles
-          className="absolute inset-0 z-0 pointer-events-none"
-          color="#94a3b8"
-          quantity={500}
-          size={0.8}
-        />
+        className="fixed inset-0 z-0 pointer-events-none"
+        color="#94a3b8"
+        quantity={500}
+        size={0.8}
+      />
       <ScrollProgress />
-      <div className="flex flex-col items-center justify-center min-h-screen p-0 m-0">
+      <div className="relative flex flex-col items-center justify-center min-h-screen p-0 m-0 z-10 bg-transparent">
         <Hero />
         <ThinLine />
         <Stack />

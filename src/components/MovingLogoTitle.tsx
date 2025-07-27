@@ -5,7 +5,7 @@ import React from "react";
 
 interface MovingLogoTitleProps {
   title: string;
-  logo: React.ReactNode;  // accept any React node for logo
+  logo: React.ReactNode;
   className?: string;
 }
 
