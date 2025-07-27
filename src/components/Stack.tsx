@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, forwardRef } from "react";
 import Image from "next/image";
 import { motion, useInView, easeOut } from "framer-motion";
-import MovingLogoTitle from "./MovingLogoTitle"; // Adjust path if needed
+import MovingLogoTitle from "./MovingLogoTitle";
 import { Layers } from "lucide-react";
 import { Anton } from "next/font/google";
 
@@ -130,13 +130,12 @@ function StackSection({ title, techs }: StackCategory) {
     >
       {/* Anton font only on these titles */}
       <h2
-        className={`${anton.className} font-extrabold tracking-wide mb-6 md:mb-0 md:text-left md:flex-1`}
+        className={`${anton.className} font-extrabold tracking-wide mb-6 md:mb-0 md:text-left md:flex-1 uppercase`}
         style={{
           fontSize: "clamp(2rem, 5vw, 4.5rem)", // responsive font size
           lineHeight: 1,
           color: "black",
-          textTransform: "uppercase",
-          wordBreak: "break-word",  // allow breaking long words if needed
+          wordBreak: "break-word",
           overflowWrap: "break-word",
         }}
       >
@@ -153,23 +152,28 @@ function StackSection({ title, techs }: StackCategory) {
   );
 }
 
-export default function Stack() {
-  const ref = React.useRef(null);
+const Stack = forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
+  (props, ref) => {
+    return (
+      <section
+        ref={ref}
+        className="max-w-7xl mx-auto px-6 py-24 text-black relative"
+        {...props}
+      >
+        <MovingLogoTitle
+          title="MY STACK"
+          logo={<Layers size={24} />}
+          className="font-bold mb-12"
+        />
 
-  return (
-    <section
-      ref={ref}
-      className="max-w-7xl mx-auto px-6 py-24 text-black relative"
-    >
-      <MovingLogoTitle
-        title="MY STACK"
-        logo={<Layers size={24} />}
-        className="font-bold mb-12"
-      />
+        {stackData.map(({ title, techs }) => (
+          <StackSection key={title} title={title} techs={techs} />
+        ))}
+      </section>
+    );
+  },
+);
 
-      {stackData.map(({ title, techs }) => (
-        <StackSection key={title} title={title} techs={techs} />
-      ))}
-    </section>
-  );
-}
+Stack.displayName = "Stack";
+
+export default Stack;
