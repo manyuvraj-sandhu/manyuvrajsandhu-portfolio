@@ -128,11 +128,10 @@ function StackSection({ title, techs }: StackCategory) {
       }}
       className="mb-20 flex flex-col md:flex-row md:items-center md:justify-between"
     >
-      {/* Anton font only on these titles */}
       <h2
         className={`${anton.className} font-extrabold tracking-wide mb-6 md:mb-0 md:text-left md:flex-1 uppercase`}
         style={{
-          fontSize: "clamp(2rem, 5vw, 4.5rem)", // responsive font size
+          fontSize: "clamp(2rem, 5vw, 4.5rem)",
           lineHeight: 1,
           color: "black",
           wordBreak: "break-word",
@@ -142,7 +141,6 @@ function StackSection({ title, techs }: StackCategory) {
         {title}
       </h2>
 
-      {/* Tech items on right */}
       <div className="flex flex-wrap gap-6 justify-center md:justify-start md:flex-1">
         {techs.map((tech) => (
           <TechItem key={tech.label} {...tech} />
@@ -152,16 +150,17 @@ function StackSection({ title, techs }: StackCategory) {
   );
 }
 
-const Stack = forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
+const Stack = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
   (props, ref) => {
     return (
       <section
         ref={ref}
+        id="techstack"
         className="max-w-7xl mx-auto px-6 py-24 text-black relative"
         {...props}
       >
         <MovingLogoTitle
-          title="MY STACK"
+          title="TECH STACK"
           logo={<Layers size={24} />}
           className="font-bold mb-12"
         />

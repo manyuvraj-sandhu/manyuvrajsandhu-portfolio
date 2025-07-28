@@ -1,37 +1,46 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RippleButton } from "./magicui/ripple-button";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
+// Nav items and their corresponding section ids
 const navItems = [
-  "About",
-  "Tech Stack",
-  "Experience",
-  "Projects",
-  "Contact Me",
+  { label: "About", id: "about" },
+  { label: "Tech Stack", id: "techstack" },
+  { label: "Experience", id: "experience" },
+  { label: "Projects", id: "projects" },
+  { label: "Contact Me", id: "contactme" },
 ];
 
-interface NavbarProps {
-  onTechStackClick?: () => void;
-}
-
-export default function Navbar({ onTechStackClick }: NavbarProps) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Helper click handler to close menu and run scroll if "Tech Stack" or "Experience" clicked
-  const handleClick = (item: string) => {
-    if (item === "Tech Stack" && onTechStackClick) {
-      onTechStackClick();
-    } else if (item === "Experience") {
-      const el = document.getElementById("experience");
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
+  // Generic smooth scroll function
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Handle clicks on nav items
+  const handleClick = (label: string) => {
+    const item = navItems.find((nav) => nav.label === label);
+    if (item) {
+      scrollToSection(item.id);
     }
     setIsOpen(false);
-    console.log(`Clicked ${item}`);
+    console.log(`Clicked ${label}`);
   };
+
+  // Optional: Enable CSS smooth scroll globally
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = "smooth";
+    return () => {
+      document.documentElement.style.scrollBehavior = "";
+    };
+  }, []);
 
   return (
     <>
@@ -55,12 +64,12 @@ export default function Navbar({ onTechStackClick }: NavbarProps) {
           <div className="hidden md:flex flex-1 justify-center gap-6">
             {navItems.map((item) => (
               <RippleButton
-                key={item}
+                key={item.label}
                 className="text-black font-semibold text-base rounded-md px-4 py-2 transition-colors focus:outline-none"
                 type="button"
-                onClick={() => handleClick(item)}
+                onClick={() => handleClick(item.label)}
               >
-                {item}
+                {item.label}
               </RippleButton>
             ))}
           </div>
@@ -75,12 +84,12 @@ export default function Navbar({ onTechStackClick }: NavbarProps) {
           <div className="flex flex-col gap-4 px-6">
             {navItems.map((item) => (
               <RippleButton
-                key={item}
+                key={item.label}
                 className="text-black font-semibold text-lg rounded-md px-4 py-3 w-full text-center transition-colors focus:outline-none"
                 type="button"
-                onClick={() => handleClick(item)}
+                onClick={() => handleClick(item.label)}
               >
-                {item}
+                {item.label}
               </RippleButton>
             ))}
           </div>
