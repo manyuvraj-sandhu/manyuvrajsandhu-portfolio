@@ -19,10 +19,15 @@ interface NavbarProps {
 export default function Navbar({ onTechStackClick }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Helper click handler to close menu and run scroll if "Tech Stack" clicked
+  // Helper click handler to close menu and run scroll if "Tech Stack" or "Experience" clicked
   const handleClick = (item: string) => {
     if (item === "Tech Stack" && onTechStackClick) {
       onTechStackClick();
+    } else if (item === "Experience") {
+      const el = document.getElementById("experience");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
     }
     setIsOpen(false);
     console.log(`Clicked ${item}`);

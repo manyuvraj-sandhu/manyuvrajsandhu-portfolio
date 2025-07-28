@@ -9,6 +9,7 @@ import { ScrollProgress } from "@/components/magicui/scroll-progress";
 import Stack from "@/components/Stack";
 import ThinLine from "@/components/ThinLine";
 import Navbar from "@/components/Navbar";
+import Experience from "@/components/Experience";
 
 export default function Home() {
   const stackRef = useRef<HTMLElement>(null);
@@ -35,6 +36,8 @@ export default function Home() {
         <ThinLine />
         {/* Pass ref to Stack */}
         <Stack ref={stackRef} />
+        <ThinLine />
+        <Experience />
         <SmoothCursor />
       </div>
     </>
