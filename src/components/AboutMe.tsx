@@ -22,7 +22,7 @@ const AboutMe = () => {
   return (
     <div
       id="about"
-      className="container min-h-screen max-w-7xl px-6 text-stone-900 xl:px-12 py-12"
+      className="container min-h-screen max-w-7xl px-6 text-stone-900 xl:px-12 py-24"
     >
       {/* Use flex-col on small screens and grid 2-cols on md+ */}
       <div className="flex flex-col md:grid md:grid-cols-2 md:gap-8 xl:gap-12">
