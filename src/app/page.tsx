@@ -12,6 +12,7 @@ import Navbar from "@/components/Navbar";
 import Experience from "@/components/Experience";
 import ContactMe from "@/components/ContactMe";
 import Projects from "@/components/Projects";
+import AboutMe from "@/components/AboutMe";
 
 export default function Home() {
   return (
@@ -27,6 +28,8 @@ export default function Home() {
       <ScrollProgress />
       <div className="relative flex flex-col items-center justify-center min-h-screen p-0 m-0 z-10 bg-transparent">
         <Hero />
+        <ThinLine />
+        <AboutMe />
         <ThinLine />
         <Stack />
         <ThinLine />
