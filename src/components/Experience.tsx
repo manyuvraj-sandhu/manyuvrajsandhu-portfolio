@@ -83,7 +83,7 @@ const experienceData: ExperienceCardProps[] = [
   },
 ];
 
-const haloColors = ["#FF0080", "#7928CA", "#0070F3", "#38bdf8"];
+const cyan700 = "#006b6b"; // Tailwind's cyan-700 color
 
 export default function Experience() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -164,7 +164,7 @@ export default function Experience() {
                 { profilePic, title, company, city, date, description },
                 i
               ) => {
-                const haloColor = haloColors[i % haloColors.length];
+                const haloColor = cyan700; // Using cyan-700 for all items
                 return (
                   <motion.div
                     key={i}

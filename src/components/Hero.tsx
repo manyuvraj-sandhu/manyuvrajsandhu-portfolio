@@ -5,7 +5,7 @@ import { AuroraText } from "@/components/magicui/aurora-text";
 
 const stats = [
   { label: "Years of Experience", value: "3+" },
-  { label: "Completed Projects", value: "7+" },
+  { label: "Completed Projects", value: "9+" },
   { label: "Hours Worked", value: "5K+" },
 ];
 

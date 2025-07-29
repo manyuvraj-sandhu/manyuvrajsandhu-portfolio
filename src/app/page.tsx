@@ -11,6 +11,7 @@ import ThinLine from "@/components/ThinLine";
 import Navbar from "@/components/Navbar";
 import Experience from "@/components/Experience";
 import ContactMe from "@/components/ContactMe";
+import Projects from "@/components/Projects";
 
 export default function Home() {
   return (
@@ -30,6 +31,8 @@ export default function Home() {
         <Stack />
         <ThinLine />
         <Experience /> 
+        <ThinLine />
+        <Projects />
         <ThinLine />
         <ContactMe />
         <SmoothCursor />
