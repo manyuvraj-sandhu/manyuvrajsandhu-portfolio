@@ -73,6 +73,10 @@ export default function ContactMe() {
           className="flex justify-center gap-6 sm:gap-10 md:gap-16"
         />
       </div>
+
+      <p className="mt-16 text-xs sm:text-sm text-gray-700">
+        Designed and built by Manyuvraj Singh Sandhu
+      </p>
     </section>
   );
 }
