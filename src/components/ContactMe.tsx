@@ -1,12 +1,13 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { SocialLinks } from "@/components/ui/social-links";
 
 const socials = [
   {
     name: "LinkedIn",
-    image: "https://link-hover-lndev.vercel.app/linkedin.png",
+    image: "/contact-icons/linkedin_logo.png",
     href: "https://www.linkedin.com/in/manyuvraj-sandhu/",
   },
   {
@@ -41,7 +42,32 @@ export default function ContactMe() {
         manyuvraj.sandhu@gmail.com
       </a>
 
-      <div className="w-full flex justify-center">
+      {/* Mobile: simple vertical list */}
+      <div className="flex flex-row items-center gap-10 md:hidden">
+        {socials.map(({ name, image, href }) => (
+          <a
+            key={name}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-col items-center gap-2"
+          >
+            <Image
+              src={image}
+              alt={name}
+              width={48}
+              height={48}
+              className="object-contain"
+              priority={false}
+              draggable={false}
+            />
+            <span className="text-base font-medium text-gray-900">{name}</span>
+          </a>
+        ))}
+      </div>
+
+      {/* Desktop and tablets: SocialLinks component */}
+      <div className="hidden md:flex w-full justify-center">
         <SocialLinks
           socials={socials}
           className="flex justify-center gap-6 sm:gap-10 md:gap-16"
