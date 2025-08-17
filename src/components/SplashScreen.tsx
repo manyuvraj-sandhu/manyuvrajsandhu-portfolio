@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence, easeOut } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Anton } from "next/font/google";
 
 const anton = Anton({
@@ -10,37 +10,39 @@ const anton = Anton({
   variable: "--font-anton",
 });
 
-const name = "MANYUVRAJ SANDHU";
+const NAME = "MANYUVRAJ SANDHU";
 
 interface SplashScreenProps {
-  onHidden?: () => void; // called when splash fully gone
+  onHidden?: () => void;
 }
 
 export default function SplashScreen({ onHidden }: SplashScreenProps) {
   const [startSlideUp, setStartSlideUp] = useState(false);
 
+  // --- Tunable timings (fast) ---
+  const PER_LETTER_DELAY = 0.06;      // sec
+  const LETTER_ANIM_DURATION = 0.28;  // sec
+  const HOLD_AFTER_NAME = 0.8;        // sec
+  const SLIDE_DURATION = 1.5;         // sec
+
+  const letters = useMemo(() => NAME.split(""), []);
+  const lettersCount = useMemo(() => NAME.replace(/ /g, "").length, []);
+
+  const totalRevealSeconds =
+    Math.max(lettersCount - 1, 0) * PER_LETTER_DELAY +
+    LETTER_ANIM_DURATION +
+    HOLD_AFTER_NAME;
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
 
-    const lettersCount = name.replace(/ /g, "").length;
-    const letterAnimTime = 0.2 * 1000; // ms per letter
-    const nameAnimDuration = lettersCount * letterAnimTime;
-    const holdDuration = 2000; // ms hold after letters appear
-    const slideDuration = 1000; // ms slide animation duration
-
-    // Start sliding up after letters + hold
-    const slideTimer = setTimeout(() => {
-      setStartSlideUp(true);
-    }, nameAnimDuration + holdDuration);
-
-    // Notify parent after slide animation completes
+    const slideTimer = setTimeout(() => setStartSlideUp(true), totalRevealSeconds * 1000);
     const hideTimer = setTimeout(() => {
       onHidden?.();
-      // Restore scroll when splash fully hidden
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
-    }, nameAnimDuration + holdDuration + slideDuration);
+    }, (totalRevealSeconds + SLIDE_DURATION) * 1000);
 
     return () => {
       clearTimeout(slideTimer);
@@ -48,17 +50,18 @@ export default function SplashScreen({ onHidden }: SplashScreenProps) {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
     };
-  }, [onHidden]);
+  }, [onHidden, totalRevealSeconds]);
 
-  const letterVariants = {
-    hidden: { opacity: 0, y: 30 },
+  const letterVariants: Variants = {
+    hidden: { opacity: 0, scale: 0.2, y: 8 },
     visible: (i: number) => ({
       opacity: 1,
+      scale: 1,
       y: 0,
       transition: {
-        delay: i * 0.2,
-        duration: 0.6,
-        ease: easeOut,
+        delay: i * PER_LETTER_DELAY,
+        duration: LETTER_ANIM_DURATION,
+        ease: [0.16, 1, 0.3, 1],
       },
     }),
   };
@@ -70,21 +73,18 @@ export default function SplashScreen({ onHidden }: SplashScreenProps) {
         initial={{ y: 0, opacity: 1 }}
         animate={startSlideUp ? { y: "-100vh", opacity: 0 } : { y: 0, opacity: 1 }}
         exit={{ y: "-100vh", opacity: 0 }}
-        transition={{ duration: 1, ease: "easeInOut" }}
-        style={{ willChange: "transform" }}
+        transition={{ duration: SLIDE_DURATION, ease: [0.4, 0, 0.2, 1] }}
+        style={{ willChange: "transform, opacity" }}
         className="fixed inset-0 h-screen w-screen bg-gradient-to-b from-black via-black to-white flex items-center justify-center z-50 px-4"
       >
         <h1
           className={`text-yellow-500 uppercase select-none whitespace-nowrap ${anton.className}`}
-          style={{
-            fontSize: "8vw",
-            fontWeight: 400,
-          }}
+          style={{ fontSize: "8vw", fontWeight: 400, letterSpacing: "0.02em" }}
         >
-          {name.split("").map((char, i) =>
+          {letters.map((char, i) =>
             char === " " ? (
               <span
-                key={i}
+                key={`space-${i}`}
                 style={{ display: "inline-block", width: "0.5em" }}
                 aria-hidden="true"
               >
@@ -92,12 +92,13 @@ export default function SplashScreen({ onHidden }: SplashScreenProps) {
               </span>
             ) : (
               <motion.span
-                key={i}
+                key={`char-${i}-${char}`}
                 custom={i}
                 variants={letterVariants}
                 initial="hidden"
                 animate="visible"
-                className="inline-block"
+                className="inline-block will-change-transform"
+                style={{ display: "inline-block" }}
               >
                 {char}
               </motion.span>
