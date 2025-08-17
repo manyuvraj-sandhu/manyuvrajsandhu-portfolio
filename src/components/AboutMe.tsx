@@ -39,7 +39,7 @@ const AboutMe = () => {
             />
           </div>
           <p className="max-w-prose text-lg">
-          Hello, I'm Manyuvraj, a Full Stack Developer with a strong academic foundation in Computational Mathematics from the University of Waterloo. My studies equipped me with expertise in data structures, algorithms, numerical computation, and object-oriented software development, which I now apply to building scalable, AI-focused solutions and automation systems.
+          {"Hello, I'm Manyuvraj, a Full Stack Developer with a strong academic foundation in Computational Mathematics from the University of Waterloo. My studies equipped me with expertise in data structures, algorithms, numerical computation, and object-oriented software development, which I now apply to building scalable, AI-focused solutions and automation systems."}
           <br />
           <br />
           What excites me about software development is the balance of creativity and logic, the ability to deconstruct complex challenges into manageable steps and deliver solutions that are both efficient and impactful. I approach coding not only as a profession but as a craft that blends problem-solving, innovation, and continuous learning.

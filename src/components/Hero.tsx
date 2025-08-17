@@ -53,7 +53,7 @@ export default function Hero() {
           priority
         />
         <p className="mt-2 text-gray-700 text-sm md:text-base">
-          University of Waterloo Student
+          University of Waterloo Alumnus
         </p>
       </div>
     </section>
