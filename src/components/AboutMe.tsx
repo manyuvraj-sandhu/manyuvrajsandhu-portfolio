@@ -9,7 +9,7 @@ const ABOUT_ME_DESCRIPTIONS = [
   "Passionate software engineer with 3+ years of experience building scalable web applications and APIs.",
   "Experienced in React, Next.js, TypeScript, and backend development using Node.js and Python.",
   "Strong believer in clean code, testing, and agile methodologies.",
-  "Enjoys collaborating with cross-functional teams to deliver impactful solutions.",
+  "Enjoys collaborating with cross-functional teams to deliver impactful solutions and has experience working as a sole software developer in start-ups.",
   "Lifelong learner eager to explore new technologies and improve user experiences.",
 ];
 
@@ -38,8 +38,14 @@ const AboutMe = () => {
               className="font-bold mb-12 text-left"
             />
           </div>
-          <p className="max-w-prose text-sm">
-            I am a dedicated software engineer who loves solving complex problems and building elegant solutions. This brief overview highlights the core strengths and values that drive my work and passion in tech.
+          <p className="max-w-prose text-lg">
+          Hello, I'm Manyuvraj, a Full Stack Developer with a strong academic foundation in Computational Mathematics from the University of Waterloo. My studies equipped me with expertise in data structures, algorithms, numerical computation, and object-oriented software development, which I now apply to building scalable, AI-focused solutions and automation systems.
+          <br />
+          <br />
+          What excites me about software development is the balance of creativity and logic, the ability to deconstruct complex challenges into manageable steps and deliver solutions that are both efficient and impactful. I approach coding not only as a profession but as a craft that blends problem-solving, innovation, and continuous learning.
+          <br />
+          <br />
+          I thrive in fast-paced, collaborative environments and am passionate about leveraging AI, automation, and modern web technologies to drive meaningful change.
           </p>
         </div>
 
@@ -55,7 +61,7 @@ const AboutMe = () => {
               incrementY={incrementY}
               className="rounded-2xl border p-8 shadow-md backdrop-blur-md bg-transparent"
             >
-              <p className="text-foreground text-lg leading-relaxed">{desc}</p>
+              <p className="text-foreground text-lg font-bold leading-relaxed">{desc}</p>
             </CardSticky>
           ))}
         </ContainerScroll>

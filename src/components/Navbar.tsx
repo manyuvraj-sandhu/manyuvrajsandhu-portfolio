@@ -6,7 +6,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 // Nav items and their corresponding section ids
 const navItems = [
-  { label: "About", id: "about" },
+  { label: "About Me", id: "about" },
   { label: "Tech Stack", id: "techstack" },
   { label: "Experience", id: "experience" },
   { label: "Projects", id: "projects" },
